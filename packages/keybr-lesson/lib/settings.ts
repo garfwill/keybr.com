@@ -1,5 +1,6 @@
 import { Syntax } from "@keybr/code";
 import { Book } from "@keybr/content";
+import { zoneListProp } from "@keybr/keyboard";
 import { booleanProp, itemProp, numberProp, stringProp } from "@keybr/settings";
 import { LessonType } from "./lessontype.ts";
 
@@ -49,6 +50,7 @@ export const lessonProps = {
   } as const,
   capitals: numberProp("lesson.capitals", 0, { min: 0, max: 1 }),
   punctuators: numberProp("lesson.punctuators", 0, { min: 0, max: 1 }),
+  zones: zoneListProp("lesson.zones"),
   doubleWords: booleanProp("lesson.doubleWords", false),
   targetSpeed: numberProp("lesson.targetSpeed", 175, { min: 75, max: 750 }),
   dailyGoal: numberProp("lesson.dailyGoal", 30, { min: 0, max: 120 }),

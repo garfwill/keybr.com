@@ -2,6 +2,7 @@ import { filterText, type Keyboard } from "@keybr/keyboard";
 import { type Letter, type PhoneticModel } from "@keybr/phonetic-model";
 import { type KeyStatsMap } from "@keybr/result";
 import { type Settings } from "@keybr/settings";
+import { filterWordList } from "./dictionary.ts";
 import { LessonKeys } from "./key.ts";
 import { Lesson } from "./lesson.ts";
 import { lessonProps } from "./settings.ts";
@@ -50,6 +51,7 @@ export class CustomTextLesson extends Lesson {
     const content = this.settings.get(lessonProps.customText.content);
     const lettersOnly = this.settings.get(lessonProps.customText.lettersOnly);
     const lowercase = this.settings.get(lessonProps.customText.lowercase);
+    const zones = this.settings.get(lessonProps.zones);
     const codePoints = new Set(this.codePoints);
     if (lettersOnly) {
       for (const codePoint of codePoints) {
@@ -62,6 +64,9 @@ export class CustomTextLesson extends Lesson {
     if (lowercase) {
       text = this.model.language.lowerCase(text);
     }
-    return text.split(/\s+/);
+    return filterWordList(
+      text.split(/\s+/),
+      this.keyboard.getCodePoints(zones),
+    );
   }
 }

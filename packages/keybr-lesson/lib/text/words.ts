@@ -5,6 +5,8 @@ import {
   type PhoneticModel,
 } from "@keybr/phonetic-model";
 import { randomSample, type RNG, weightedRandomSample } from "@keybr/rand";
+import { type Settings } from "@keybr/settings";
+import { lessonProps } from "../settings.ts";
 
 export type WordGenerator = () => string | "" | null;
 
@@ -75,15 +77,11 @@ export function mangledWords(
   nextWord: WordGenerator,
   language: Language,
   punctuators: readonly Letter[],
-  {
-    withCapitals = 0,
-    withPunctuators = 0,
-  }: {
-    withCapitals?: number;
-    withPunctuators?: number;
-  },
+  settings: Settings,
   random: RNG,
 ): WordGenerator {
+  const withCapitals = settings.get(lessonProps.capitals);
+  const withPunctuators = settings.get(lessonProps.punctuators);
   return () => {
     let word = nextWord();
     if (word == null || word === "") {

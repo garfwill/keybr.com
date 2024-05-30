@@ -4,4 +4,5 @@ export * from "./KeyLayer.tsx";
 export * from "./PointersLayer.tsx";
 export * from "./TransitionsLayer.tsx";
 export * from "./VirtualKeyboard.tsx";
+export * from "./ZonesFilter.tsx";
 export * from "./ZonesLayer.tsx";

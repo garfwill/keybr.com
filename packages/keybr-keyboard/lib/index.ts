@@ -16,3 +16,4 @@ export * from "./settings.ts";
 export * from "./stats.ts";
 export * from "./types.ts";
 export * from "./use-formatted-names.ts";
+export * from "./zone-list-prop.ts";

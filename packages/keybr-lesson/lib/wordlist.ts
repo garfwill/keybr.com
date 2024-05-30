@@ -23,7 +23,8 @@ export class WordListLesson extends Lesson {
     super(settings, keyboard, model);
     const wordListSize = settings.get(lessonProps.wordList.wordListSize);
     const longWordsOnly = settings.get(lessonProps.wordList.longWordsOnly);
-    this.wordList = filterWordList(wordList, this.codePoints)
+    const zones = settings.get(lessonProps.zones);
+    this.wordList = filterWordList(wordList, this.keyboard.getCodePoints(zones))
       .filter((word) => !longWordsOnly || word.length > 3)
       .slice(0, wordListSize);
   }
@@ -42,10 +43,7 @@ export class WordListLesson extends Lesson {
       uniqueWords(wordGenerator),
       this.model.language,
       Letter.restrict(Letter.punctuators, this.codePoints),
-      {
-        withCapitals: this.settings.get(lessonProps.capitals),
-        withPunctuators: this.settings.get(lessonProps.punctuators),
-      },
+      this.settings,
       this.rng,
     );
     return generateFragment(this.settings, words, {

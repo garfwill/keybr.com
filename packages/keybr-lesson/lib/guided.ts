@@ -115,10 +115,7 @@ export class GuidedLesson extends Lesson {
       uniqueWords(wordGenerator),
       this.model.language,
       Letter.restrict(Letter.punctuators, this.codePoints),
-      {
-        withCapitals: this.settings.get(lessonProps.capitals),
-        withPunctuators: this.settings.get(lessonProps.punctuators),
-      },
+      this.settings,
       this.rng,
     );
     return generateFragment(this.settings, words, {
