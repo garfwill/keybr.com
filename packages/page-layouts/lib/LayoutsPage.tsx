@@ -7,9 +7,13 @@ import {
 import { Alphabet } from "@keybr/phonetic-model";
 import { PhoneticModelLoader } from "@keybr/phonetic-model-loader";
 import { Article, Field, FieldList, OptionList } from "@keybr/widget";
-import { type ReactNode, useState } from "react";
+import { lazy, type ReactNode, Suspense, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { KeyFrequencyHeatmap } from "./KeyFrequencyHeatmap.tsx";
+
+const LazyKeyboardDesigner = lazy(
+  () => import("./design/LazyKeyboardDesigner.tsx"),
+);
 
 export function LayoutsPage(): ReactNode {
   const { formatLanguageName } = useFormattedNames();
@@ -19,6 +23,9 @@ export function LayoutsPage(): ReactNode {
   ).map((layout) => loadKeyboard(layout));
   return (
     <Article>
+      <Suspense>
+        <LazyKeyboardDesigner />
+      </Suspense>
       <FormattedMessage
         id="page.layouts.content"
         defaultMessage={
